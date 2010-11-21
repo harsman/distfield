@@ -36,7 +36,7 @@ void usage(void){
     printf("Note that output PNG is poorly optimized for size.\n");
 }
 
-float mindist(char* in, int w, int h, int x, int y, int r, float maxdist){
+float mindist(unsigned char* in, int w, int h, int x, int y, int r, float maxdist){
     int i, j, startx, starty, stopx, stopy, hit;
     float d, dx, dy;
     float mind = maxdist;
@@ -69,7 +69,7 @@ float mindist(char* in, int w, int h, int x, int y, int r, float maxdist){
         return -sqrtf(mind);
 }
 
-void render(char* in, int w, int h, char* out, int outsize){
+void render(unsigned char* in, int w, int h, unsigned char* out, int outsize){
     int x, y, ix, iy;
     float d;
     unsigned char di;
@@ -129,7 +129,7 @@ int main(int argc, char** argv){
 
     stbi_image_free(img);
     render(imgin, w, h, imgout, outsize);
-
+    printf("render complete\n");
     if(!stbi_write_png(argv[2], outsize, outsize, 1, imgout, outsize))
         printf("Failed to write output image %s\n", argv[2]);
     else
